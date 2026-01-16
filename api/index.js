@@ -47,15 +47,15 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 
 dotenv.config({ path: __dirname + '/.env' });
-const connectDB = require('./config/db');
+const connectDB = require('../config/db');
 
-const productsRouter = require('./routes/products');
-const ordersRouter = require('./routes/orders');
-const cartsRouter = require('./routes/carts');
-const walletsRouter = require('./routes/wallets');
-const addressesRouter = require('./routes/addresses');
-const usersRouter = require('./routes/users');
-const wishlistsRouter = require('./routes/wishlists');
+const productsRouter = require('../routes/products');
+const ordersRouter = require('../routes/orders');
+const cartsRouter = require('../routes/carts');
+const walletsRouter = require('../routes/wallets');
+const addressesRouter = require('../routes/addresses');
+const usersRouter = require('../routes/users');
+const wishlistsRouter = require('../routes/wishlists');
 
 const app = express();
 
@@ -90,6 +90,7 @@ app.use('/api/wallets', walletsRouter);
 app.use('/api/addresses', addressesRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/wishlists', wishlistsRouter);
+
 
 /* Health check */
 app.get('/api/health', (req, res) => {
