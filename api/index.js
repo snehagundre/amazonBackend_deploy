@@ -39,63 +39,55 @@
 //     process.exit(1);
 //   }
 // })();
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+import helmet from "helmet";
+import morgan from "morgan";
 
-const express = require('express');
-const dotenv = require('dotenv');
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
+import { connectDB } from "../db/connectDB.js";
 
-dotenv.config({ path: __dirname + '/.env' });
-const connectDB = require('../config/db');
+import productsRouter from "../routes/products.js";
+import ordersRouter from "../routes/orders.js";
+import cartsRouter from "../routes/carts.js";
+import walletsRouter from "../routes/wallets.js";
+import addressesRouter from "../routes/addresses.js";
+import usersRouter from "../routes/users.js";
+import wishlistsRouter from "../routes/wishlists.js";
 
-const productsRouter = require('../routes/products');
-const ordersRouter = require('../routes/orders');
-const cartsRouter = require('../routes/carts');
-const walletsRouter = require('../routes/wallets');
-const addressesRouter = require('../routes/addresses');
-const usersRouter = require('../routes/users');
-const wishlistsRouter = require('../routes/wishlists');
+dotenv.config();
 
 const app = express();
 
-/* Middleware */
 app.use(helmet());
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
 
-/* MongoDB connection caching (VERY IMPORTANT for Vercel) */
 let isConnected = false;
-const dbMiddleware = async (req, res, next) => {
+
+app.use(async (req, res, next) => {
   if (!isConnected) {
     try {
       await connectDB();
       isConnected = true;
     } catch (err) {
-      console.error('MongoDB connection failed', err);
-      return res.status(500).json({ error: 'Database connection failed' });
+      return res.status(500).json({ error: "Database connection failed" });
     }
   }
   next();
-};
-
-app.use(dbMiddleware);
-
-/* Routes (unchanged) */
-app.use('/api/products', productsRouter);
-app.use('/api/orders', ordersRouter);
-app.use('/api/carts', cartsRouter);
-app.use('/api/wallets', walletsRouter);
-app.use('/api/addresses', addressesRouter);
-app.use('/api/users', usersRouter);
-app.use('/api/wishlists', wishlistsRouter);
-
-
-/* Health check */
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'API running on Vercel 🚀' });
 });
 
-/* IMPORTANT: export app (no listen) */
-module.exports = app;
+app.use("/api/products", productsRouter);
+app.use("/api/orders", ordersRouter);
+app.use("/api/carts", cartsRouter);
+app.use("/api/wallets", walletsRouter);
+app.use("/api/addresses", addressesRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/wishlists", wishlistsRouter);
+
+app.get("/api/health", (req, res) => {
+  res.json({ status: "API running" });
+});
+
+export default app;
