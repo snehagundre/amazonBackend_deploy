@@ -1,6 +1,8 @@
-const express = require('express');
+import express from 'express';
+import Cart from '../models/cart.model.js';
+
 const router = express.Router();
-const Cart = require('../models/cart.model');
+
 // Upsert (add or update) a single cart item for a user
 router.post('/user/:userId/item', async (req, res) => {
   try {
@@ -55,4 +57,4 @@ router.post('/user/:userId', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

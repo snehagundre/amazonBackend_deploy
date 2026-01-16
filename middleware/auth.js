@@ -1,4 +1,4 @@
-const { jwt, JWT_SECRET } = require('../config/jwt');
+import { jwt, JWT_SECRET } from '../config/jwt.js';
 
 function authMiddleware(req, res, next) {
   const authHeader = req.headers['authorization'];
@@ -15,4 +15,4 @@ function authMiddleware(req, res, next) {
   }
 }
 
-module.exports = authMiddleware;
+export default authMiddleware;

@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import Address from '../models/address.model.js';
+
 const router = express.Router();
-const Address = require('../models/address.model');
 
 // Get all addresses for user
 router.get('/user/:userId', async (req, res) => {
@@ -23,4 +24,4 @@ router.post('/user/:userId', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

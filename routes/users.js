@@ -1,6 +1,8 @@
-const express = require('express');
+import express from 'express';
+import User from '../models/user.model.js';
+import { jwt, JWT_SECRET } from '../config/jwt.js';
+
 const router = express.Router();
-const User = require('../models/user.model');
 
 // Check if account exists by email or mobile (for forgot password)
 router.post('/check-account', async (req, res) => {
@@ -18,7 +20,6 @@ router.post('/check-account', async (req, res) => {
   }
 });
 // Simple login route (now with JWT)
-const { jwt, JWT_SECRET } = require('../config/jwt');
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -87,4 +88,4 @@ router.get('/email/:email', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

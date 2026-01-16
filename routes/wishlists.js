@@ -1,9 +1,10 @@
-const express = require('express');
+import express from 'express';
+import Wishlist from '../models/wishlist.model.js';
+import Product from '../models/product.model.js';
+import User from '../models/user.model.js';
+import authMiddleware from '../middleware/auth.js';
+
 const router = express.Router();
-const Wishlist = require('../models/wishlist.model');
-const Product = require('../models/product.model');
-const User = require('../models/user.model');
-const authMiddleware = require('../middleware/auth');
 
 // Get wishlist for current user
 router.get('/', authMiddleware, async (req, res) => {
@@ -52,4 +53,4 @@ router.post('/remove', authMiddleware, async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

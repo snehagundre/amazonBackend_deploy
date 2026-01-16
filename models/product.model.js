@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const ProductSchema = new mongoose.Schema({
   title: String,
@@ -17,4 +17,4 @@ const ProductSchema = new mongoose.Schema({
   is_available: Boolean
 }, { strict: false });
 
-module.exports = mongoose.model('Product', ProductSchema);
+export default mongoose.model('Product', ProductSchema);

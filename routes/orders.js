@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import Order from '../models/order.model.js';
+import authMiddleware from '../middleware/auth.js';
+
 const router = express.Router();
-const Order = require('../models/order.model');
-const authMiddleware = require('../middleware/auth');
 
 // Create new order (protected)
 router.post('/', authMiddleware, async (req, res) => {
@@ -47,4 +48,4 @@ router.get('/:orderId', authMiddleware, async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

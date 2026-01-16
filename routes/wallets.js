@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import Wallet from '../models/wallet.model.js';
+
 const router = express.Router();
-const Wallet = require('../models/wallet.model');
 
 // Get wallet for user
 router.get('/user/:userId', async (req, res) => {
@@ -30,4 +31,4 @@ router.post('/user/:userId', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
